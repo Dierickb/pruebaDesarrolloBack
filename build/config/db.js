@@ -52,15 +52,16 @@ exports.createPathEnv = createPathEnv;
 exports.nodeNameEnv = (0, exports.createPathEnv)((0, exports.nodeEnv)());
 exports.AppDataSource = new typeorm_1.DataSource({
     type: 'postgres',
-    host: (0, exports.getEnvironment)("DB_HOST"),
-    username: (0, exports.getEnvironment)("DB_USER"),
-    password: (0, exports.getEnvironment)("DB_PASSWORD"),
-    port: (0, exports.getNumberEnv)("DB_PORT"),
-    database: (0, exports.getEnvironment)("DB_DATABASE"),
+    host: process.env.DB_HOST,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    port: Number(process.env.DB_PORT),
+    database: process.env.POSTGRES_DB,
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
     logging: true,
-    synchronize: false,
+    synchronize: true,
+    connectTimeoutMS: Number(process.env.DB_POOL_CLIENT_CONNECTION_TIMEOUT),
 });
 dotenv.config({
     path: exports.nodeNameEnv,

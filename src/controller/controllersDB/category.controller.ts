@@ -59,9 +59,9 @@ export const deleteCategory = async (req: express.Request, res: express.Response
     try {
         const result = await CategoryEntity.delete({ id: (req.params.id) });
         if (result.affected === 0) {
-            return res.status(404).json({ message: "Category not Found" })
+            return res.status(404).json({ message: "Category deleted" })
         };
-        return res.sendStatus(204);
+        return res.sendStatus(204).json("Category not Found");
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).json({ message: error.message });

@@ -11,7 +11,7 @@ import purchaseRequire from './routes/apiControllers/purchase.routes';
 const app: Application = express();
 
 // Settings
-app.set("port", 80);
+app.set("port", 3001);
 
 // Middlewares
 app.use(express.json()); // middleware que transforma la re.body a un json
@@ -20,6 +20,11 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
+console.log("");
+console.log("");
+console.log("DIERICK BROCHERO");
+console.log("");
+console.log("");
 app.use('/', indexRequire);
 app.use('/', userRequire);
 app.use('/', categoryRequire);

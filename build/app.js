@@ -37,13 +37,22 @@ const product_routes_1 = __importDefault(require("./routes/apiControllers/produc
 const purchase_routes_1 = __importDefault(require("./routes/apiControllers/purchase.routes"));
 const app = (0, express_1.default)();
 // Settings
-app.set("port", 80);
+app.set("port", 3001);
 // Middlewares
 app.use(express_1.default.json()); // middleware que transforma la re.body a un json
 app.use(express_1.default.urlencoded({ extended: true })); //
 app.use((0, morgan_1.default)('dev'));
 app.use((0, cors_1.default)());
 app.use(express_1.default.urlencoded({ extended: true }));
+console.log("");
+console.log("");
+console.log("");
+console.log("");
+console.log("DIERICK BROCHERO");
+console.log("");
+console.log("");
+console.log("");
+console.log("");
 app.use('/', index_1.default);
 app.use('/', auth_routes_1.default);
 app.use('/', category_routes_1.default);

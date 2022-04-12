@@ -28,15 +28,18 @@ export const nodeNameEnv = createPathEnv(nodeEnv())
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    host: getEnvironment("DB_HOST"),
-    username: getEnvironment("DB_USER"),
-    password: getEnvironment("DB_PASSWORD"),
-    port: getNumberEnv("DB_PORT"),
-    database: getEnvironment("DB_DATABASE"),
+    host: process.env.DB_HOST,
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    port: Number(process.env.DB_PORT),
+    database: process.env.POSTGRES_DB,
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
     logging: true,
     synchronize: true,
+    connectTimeoutMS: Number(
+        process.env.DB_POOL_CLIENT_CONNECTION_TIMEOUT
+    ),
 });
 dotenv.config({
     path: nodeNameEnv,

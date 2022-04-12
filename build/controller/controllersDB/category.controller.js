@@ -14,6 +14,9 @@ const category_entity_1 = require("../../entities/category.entity");
 const createCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { categoryName } = req.body;
+        const categoryValidate = yield category_entity_1.CategoryEntity.findOneBy({ categoryName: categoryName });
+        if (categoryValidate)
+            return res.status(400).json('This category had been created');
         const Category = new category_entity_1.CategoryEntity();
         Category.categoryName = categoryName;
         yield Category.save();

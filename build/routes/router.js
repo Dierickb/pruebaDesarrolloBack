@@ -54,12 +54,10 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.TOKEN_SECRET || 'tokentest', {
             expiresIn: 60 * 60 * 24
         });
-        res.header('auth-token', token).json(user);
+        res.header('auth-token', token).json(token);
     }
     catch (e) {
-        console.log("");
         console.error(e);
-        console.log("");
     }
 });
 exports.login = login;
@@ -70,16 +68,14 @@ const getIndex = (req, res) => {
 exports.getIndex = getIndex;
 const profile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield auth_entity_1.UserEntity.findOneBy({ nickName: req.nickName });
-        console.log(user);
+        const user = yield auth_entity_1.UserEntity.findOneBy({ id: req.userId });
         if (!user)
-            return res.status(400).json('No User Found');
+            return res.status(404).json('No User Found');
+        //user.password = '';
         res.json(user);
     }
     catch (e) {
-        console.log("");
         console.error(e);
-        console.log("");
     }
     ;
 });

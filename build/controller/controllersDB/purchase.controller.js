@@ -11,10 +11,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPurchase = exports.getPurchases = exports.createPurchase = void 0;
 const purchases_products_entity_1 = require("../../entities/custom/purchases-products.entity");
+const product_entity_1 = require("../../entities/product.entity");
 const createPurchase = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { quantityProduct, totalPrice, user, products } = req.body;
-        totalPrice = parseInt(totalPrice);
+        let { quantityProduct, user, products } = req.body;
+        let totalPrice = 0;
+        let i = 0;
+        const productsDB = yield product_entity_1.ProductEntity.find({ select: ["id", "price"] });
+        for (let elements of products) {
+            for (let elementsDB of productsDB) {
+                if (elements.id === elementsDB.id) {
+                    totalPrice = (elementsDB.price * quantityProduct[i]) + totalPrice;
+                }
+                ;
+            }
+            ;
+            i = i + 1;
+        }
+        ;
         const purchase = new purchases_products_entity_1.PurchaseProductEntity();
         purchase.products = products;
         purchase.quantityProduct = quantityProduct;

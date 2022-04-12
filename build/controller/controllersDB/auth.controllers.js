@@ -20,6 +20,9 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         // saving new user
         let { name, password, nickName, money } = req.body;
+        const userValidate = yield auth_entity_1.UserEntity.findOneBy({ nickName: nickName });
+        if (userValidate)
+            return res.status(400).json('NickName en uso');
         password = yield (0, argon2_1.hash)(password); //encriptando contraseña
         const user = new auth_entity_1.UserEntity();
         user.name = name;

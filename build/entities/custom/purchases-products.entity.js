@@ -17,8 +17,8 @@ const auth_entity_1 = require("../auth.entity");
 let PurchaseProductEntity = class PurchaseProductEntity extends base_entity_1.BaseEntities {
 };
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.Column)("int", { array: true }),
+    __metadata("design:type", Array)
 ], PurchaseProductEntity.prototype, "quantityProduct", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", auth_entity_1.UserEntity)
 ], PurchaseProductEntity.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => product_entity_1.ProductEntity, (product) => product.purchaseProduct, { eager: true }),
+    (0, typeorm_1.ManyToMany)(() => product_entity_1.ProductEntity, (product) => product.purchaseProduct),
     (0, typeorm_1.JoinTable)({
         name: "products_purchases_products_product",
         joinColumn: {
@@ -38,8 +38,9 @@ __decorate([
         },
         inverseJoinColumn: {
             name: "productId",
-        },
+        }
     }),
+    (0, typeorm_1.JoinTable)({}),
     __metadata("design:type", Array)
 ], PurchaseProductEntity.prototype, "products", void 0);
 PurchaseProductEntity = __decorate([

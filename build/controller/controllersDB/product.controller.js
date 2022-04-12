@@ -15,7 +15,9 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         let { productName, price, description, category } = req.body;
         price = (price);
-        //category_id = (category_id);
+        const productValidate = yield product_entity_1.ProductEntity.findOneBy({ productName: productName });
+        if (productValidate)
+            return res.status(400).json('Product had been created');
         const product = new product_entity_1.ProductEntity();
         product.productName = productName;
         product.price = price;
@@ -50,7 +52,6 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         let { productName, price, description, category } = req.body;
         const product = yield product_entity_1.ProductEntity.findOneBy({ id: (req.params.id) });
-        const categories = category;
         if (!product) {
             return res.status(404).json({ message: "Product does not exist." });
         }
@@ -64,17 +65,10 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         ;
         if (description === undefined) {
             description = product.description;
-            console.log("");
-            console.log(productName);
-            console.log("");
         }
         ;
         if (category === undefined) {
             category = { 'id': `${product.category.id}` };
-            console.log("");
-            console.log(category);
-            console.log(category.id);
-            console.log("");
         }
         ;
         yield product_entity_1.ProductEntity.update({ id: (req.params.id) }, {

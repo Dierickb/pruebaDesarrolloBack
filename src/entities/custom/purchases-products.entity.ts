@@ -15,7 +15,7 @@ export class PurchaseProductEntity extends BaseEntities {
   @JoinColumn({ name: "userId" })
   user: UserEntity;
 
-  @ManyToMany(() => ProductEntity, (product) => product.purchaseProduct)
+  @ManyToMany(() => ProductEntity, (product) => product.purchaseProduct, { eager: true })
   @JoinTable({ 
     name: "products_purchases_products_product",
     joinColumn: {
