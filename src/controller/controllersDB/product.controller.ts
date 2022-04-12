@@ -1,6 +1,6 @@
 import express from 'express';
-import { ProductEntity } from '../entities/product.entity'
-import { CategoryId, Category } from '../types'
+import { ProductEntity } from '../../entities/product.entity'
+import { CategoryId, Category } from '../../types'
 
 export const createProduct = async (req: express.Request, res: express.Response) => {
     try {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { PurchaseProductEntity } from '.././entities/custom/purchases-products.entity'
+import { PurchaseProductEntity } from '../../entities/custom/purchases-products.entity'
 
 export const createPurchase = async (req: express.Request, res: express.Response) => {
     try {

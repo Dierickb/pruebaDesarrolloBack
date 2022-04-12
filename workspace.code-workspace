@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\desarrolloBack"
+		},
+		{
+			"path": "..\\typORMNode"
+		}
+	],
+	"settings": {}
+}

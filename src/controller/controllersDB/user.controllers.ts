@@ -1,5 +1,5 @@
 import express from 'express';
-import { UserEntity } from '../entities/auth.entity'
+import { UserEntity } from '../../entities/user.entity'
 
 export const createUser = async (req: express.Request, res: express.Response) => {
     try {

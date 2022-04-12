@@ -1,5 +1,5 @@
 import express from 'express';
-import { CategoryEntity } from '../entities/category.entity'
+import { CategoryEntity } from '../../entities/category.entity'
 
 export const createCategory = async (req: express.Request, res: express.Response) => {
     try {
