@@ -36,7 +36,7 @@ export const AppDataSource = new DataSource({
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     migrations: [__dirname + "/../../migrations/*{.ts,.js}"],
     logging: true,
-    synchronize: false,
+    synchronize: true,
 });
 dotenv.config({
     path: nodeNameEnv,

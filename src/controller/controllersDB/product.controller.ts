@@ -55,16 +55,9 @@ export const updateProduct = async (req: express.Request, res: express.Response)
         };
         if ( description === undefined) {
             description = product.description;
-            console.log("")
-            console.log(productName)
-            console.log("")
         };
         if ( category === undefined) {
             category= { 'id': `${product.category.id}`}
-            console.log("")
-            console.log(category);
-            console.log(category.id)
-            console.log("")
         };
 
         

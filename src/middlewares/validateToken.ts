@@ -11,11 +11,7 @@ interface IPayload {
 export const TokenValidation = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.header('auth-token');
-
-        console.log("")
-        console.log(token)
-        console.log("")
-
+        
         if (!token) return res.status(401).json('Access denied');
 
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET || 'tokentest') as IPayload;

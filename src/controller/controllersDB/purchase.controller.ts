@@ -1,10 +1,23 @@
 import express from 'express';
-import { PurchaseProductEntity } from '../../entities/custom/purchases-products.entity'
+import { PurchaseProductEntity } from '../../entities/custom/purchases-products.entity';
+import { ProductEntity } from '../../entities/product.entity';
 
 export const createPurchase = async (req: express.Request, res: express.Response) => {
     try {
-        let { quantityProduct,  totalPrice, user, products } = req.body;
-        totalPrice = parseInt(totalPrice);
+        let { quantityProduct, user, products } = req.body;
+        let totalPrice = 0;
+        let i =0;
+
+        const productsDB = await ProductEntity.find({ select: ["id", "price"] });
+
+        for (let elements of products) {
+            for (let elementsDB of productsDB){
+                if(elements.id === elementsDB.id){
+                    totalPrice = (elementsDB.price*quantityProduct[i]) + totalPrice;
+                };
+            };
+            i=i+1;
+        };
 
         const purchase = new PurchaseProductEntity();
         purchase.products = products;

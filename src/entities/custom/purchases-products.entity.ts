@@ -5,8 +5,8 @@ import { UserEntity } from "../auth.entity";
 
 @Entity({ name: "products_purchases" })
 export class PurchaseProductEntity extends BaseEntities {
-  @Column()
-  quantityProduct: number;
+  @Column("int", {array: true})
+  quantityProduct: number[];
 
   @Column()
   totalPrice: number;
@@ -15,7 +15,7 @@ export class PurchaseProductEntity extends BaseEntities {
   @JoinColumn({ name: "userId" })
   user: UserEntity;
 
-  @ManyToMany(() => ProductEntity, (product) => product.purchaseProduct, { eager: true })
+  @ManyToMany(() => ProductEntity, (product) => product.purchaseProduct)
   @JoinTable({ 
     name: "products_purchases_products_product",
     joinColumn: {
@@ -23,7 +23,8 @@ export class PurchaseProductEntity extends BaseEntities {
     },
     inverseJoinColumn: {
       name: "productId",
-    },
+    }
   })
+  @JoinTable({})
   products: ProductEntity[];
 }

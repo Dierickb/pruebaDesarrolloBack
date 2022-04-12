@@ -22,9 +22,7 @@ export const login = async (req: express.Request, res: express.Response) => {
         })
         res.header('auth-token', token).json(token)
     } catch (e) {
-        console.log("")
         console.error(e);
-        console.log("")
     }
 
 }
@@ -36,9 +34,10 @@ export const getIndex = (req: express.Request, res: express.Response) => {
 
 export const profile = async (req: express.Request, res: express.Response) => {
     try {
-        const user = await UserEntity.findOneBy({ id: req.userId })
+        const user = await UserEntity.findOneBy({ id: req.userId });
         
-        if (!user) return res.status(404).json('No User Found')
+        if (!user) return res.status(404).json('No User Found');
+        //user.password = '';
         
         res.json(user);
     } catch (e) {

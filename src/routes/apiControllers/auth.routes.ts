@@ -9,7 +9,7 @@ router.get('/auth', getUsers);
 
 router.get('/auth/:id',  getUser);
 
-router.post('/auth', TokenValidation, createUser);
+router.post('/auth', createUser);
 
 router.put('/auth/:id', TokenValidation, updateUser);
 
