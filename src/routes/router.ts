@@ -9,12 +9,10 @@ dotenv.config()
 
 export const login = async (req: express.Request, res: express.Response) => {
     try {
-
         const user = await UserEntity.findOneBy({ nickName: req.body.nickName })
       
         if (!user) return res.status(400).json('Invalid NickName')
        
-
         const checked: boolean = await verify(user.password, req.body.password)
 
         if (!checked) return res.status(400).json('Invalid Password')
@@ -22,8 +20,7 @@ export const login = async (req: express.Request, res: express.Response) => {
         const token: string = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET || 'tokentest', {
             expiresIn: 60 * 60 * 24
         })
-
-        res.header('auth-token', token).json(user)
+        res.header('auth-token', token).json(token)
     } catch (e) {
         console.log("")
         console.error(e);
@@ -41,7 +38,7 @@ export const profile = async (req: express.Request, res: express.Response) => {
     try {
         const user = await UserEntity.findOneBy({ id: req.userId })
         
-        if (!user) return res.status(400).json('No User Found')
+        if (!user) return res.status(404).json('No User Found')
         
         res.json(user);
     } catch (e) {
