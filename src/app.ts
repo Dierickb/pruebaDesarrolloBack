@@ -2,7 +2,7 @@ import express, {Application} from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import indexRequire from './routes/index';
-import authRequire from './routes/apiControllers/user.routes';
+import userRequire from './routes/apiControllers/auth.routes';
 import * as envConfig from './config/db'
 import categoryRequire from './routes/apiControllers/category.routes';
 import productRequire from './routes/apiControllers/product.routes';
@@ -10,8 +10,10 @@ import purchaseRequire from './routes/apiControllers/purchase.routes';
 
 const app: Application = express();
 
-// Middlewares
+// Settings
 app.set("port", 80);
+
+// Middlewares
 app.use(express.json()); // middleware que transforma la re.body a un json
 app.use(express.urlencoded({ extended: true })); //
 app.use(morgan('dev'));
@@ -19,7 +21,7 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/', indexRequire);
-app.use('/', authRequire);
+app.use('/', userRequire);
 app.use('/', categoryRequire);
 app.use('/', productRequire);
 app.use('/', purchaseRequire);

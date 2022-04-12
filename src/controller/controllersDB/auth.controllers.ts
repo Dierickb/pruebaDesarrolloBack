@@ -1,18 +1,32 @@
 import express from 'express';
-import { UserEntity } from '../../entities/user.entity'
+import { UserEntity } from '../../entities/auth.entity'
+import jwt from 'jsonwebtoken';
+import { hash, verify } from 'argon2';
 
 export const createUser = async (req: express.Request, res: express.Response) => {
     try {
-        const { name, money } = req.body;
 
+        // saving new user
+        let { name, password, nickName,money } = req.body;
+        const userValidate = await UserEntity.findOneBy({ nickName: nickName })
+        
+        if (userValidate) return res.status(400).json('NickName en uso')
+
+
+        password = await hash(password); //encriptando contraseña
         const user = new UserEntity();
         user.name = name;      
         user.money = money; 
-         
-        await user.save();
 
-        console.log(user);
-        return res.json(user);
+        user.nickName = nickName,
+        user.password = password         
+        const savedUser = await user.save();
+
+        const token: string = jwt.sign({id: savedUser.id}, process.env.TOKEN_SECRET || 'tokentest');
+
+        console.log(token);
+        
+        return res.header('auth-token', token).json(savedUser);
     } catch (error) {
         if (error instanceof Error) {
             return res.status(500).json(error);

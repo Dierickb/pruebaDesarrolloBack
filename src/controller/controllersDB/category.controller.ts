@@ -5,6 +5,10 @@ export const createCategory = async (req: express.Request, res: express.Response
     try {
         const {categoryName} = req.body;
 
+        const categoryValidate = await CategoryEntity.findOneBy({ categoryName: categoryName })
+        
+        if (categoryValidate) return res.status(400).json('This category had been created')
+
         const Category = new CategoryEntity();
         Category.categoryName = categoryName;
 
@@ -21,7 +25,6 @@ export const createCategory = async (req: express.Request, res: express.Response
 
 export const getCategories = async (req: express.Request, res: express.Response) => {
     try {
-
         const Category = await CategoryEntity.find();
         return res.json(Category);
     } catch (error) {

@@ -15,6 +15,14 @@ export class UserEntity extends BaseEntities {
     @Column()
     name: string
 
+    @Column({
+        length: 750
+    })
+    password: string
+
+    @Column()
+    nickName: string
+
     @Column()
     money: number
 

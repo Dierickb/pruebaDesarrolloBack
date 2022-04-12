@@ -6,7 +6,9 @@ export const createProduct = async (req: express.Request, res: express.Response)
     try {
         let { productName, price, description, category } = req.body;
         price = (price);
-        //category_id = (category_id);
+        const productValidate = await ProductEntity.findOneBy({ productName: productName })
+        
+        if (productValidate) return res.status(400).json('Product had been created')
 
         const product = new ProductEntity();
         product.productName = productName;
@@ -41,9 +43,7 @@ export const updateProduct = async (req: express.Request, res: express.Response)
     try {
         let { productName, price, description, category } = req.body;
 
-        const product = await ProductEntity.findOneBy({ id: (req.params.id) })
-
-        const categories: CategoryId = category;
+        const product = await ProductEntity.findOneBy({ id: (req.params.id) });
 
         if (!product) { return res.status(404).json({ message: "Product does not exist." }); }
 
